@@ -117,9 +117,10 @@ public class CustomHashSet <T> implements CustomSet<T>{
 
     @Override
     public Iterator iterator() {
-        return new CustomHashSetIterator();
+        //return new CustomHashSetIterator();
+        return null;
     }
-
+/*
     class CustomHashSetIterator implements Iterator{
         private int currentBucket;
         private int previousBucket;
@@ -149,6 +150,7 @@ public class CustomHashSet <T> implements CustomSet<T>{
             //nothing left
             return false;
         }
+
 
         //return the next value, increment the iterator
         @Override
@@ -180,7 +182,7 @@ public class CustomHashSet <T> implements CustomSet<T>{
             return currentEntry.key;
         }
     }
-
+*/
     @Override
     public int size() {
         return this.size;

@@ -46,7 +46,7 @@ public class TicketDaoImpl implements TicketDao{
     }
 
     @Override
-    public void update(Ticket ticket) {
+    public Ticket update(Ticket ticket) {
         String sql = "update tickets set employeeId = ?, ticketAmount = ?, description = ?, status = ?, submissionTime = ? where id = ?;";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -60,6 +60,7 @@ public class TicketDaoImpl implements TicketDao{
             int count = preparedStatement.executeUpdate();
             if(count == 1){
                 System.out.println("Update Successful!");
+                return ticket;
             }
             else{
                 System.out.println("something went wrong with the update");
@@ -68,10 +69,11 @@ public class TicketDaoImpl implements TicketDao{
         catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
-    public void delete(int idData) {
+    public boolean delete(int idData) {
         String sql = "delete from tickets where id = ?;";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -81,6 +83,7 @@ public class TicketDaoImpl implements TicketDao{
 
             if(count == 1){
                 System.out.println("Deletion successful");
+                return true;
             }
             else{
                 System.out.println("something went wrong");
@@ -88,6 +91,7 @@ public class TicketDaoImpl implements TicketDao{
         } catch (SQLException e){
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override

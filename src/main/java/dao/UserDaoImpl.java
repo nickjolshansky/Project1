@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao{
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(2, user.getPass());
             preparedStatement.setBoolean(3, user.isManager());
 
             int count = preparedStatement.executeUpdate();
@@ -44,18 +44,20 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void update(User user) {
+    public User update(User user) {
         String sql = "update users set username = ?, pass = ?, isManager = ? where id = ?;";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(2, user.getPass());
             preparedStatement.setBoolean(3, user.isManager());
             preparedStatement.setInt(4, user.getId());
 
             int count = preparedStatement.executeUpdate();
             if(count == 1){
                 System.out.println("Update Successful!");
+
+                return user;
             }
             else{
                 System.out.println("something went wrong with the update");
@@ -64,10 +66,12 @@ public class UserDaoImpl implements UserDao{
         catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return null;
     }
 
     @Override
-    public void delete(int idData) {
+    public boolean delete(int idData) {
         String sql = "delete from users where id = ?;";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -77,6 +81,7 @@ public class UserDaoImpl implements UserDao{
 
             if(count == 1){
                 System.out.println("Deletion successful");
+                return true;
             }
             else{
                 System.out.println("something went wrong");
@@ -84,6 +89,7 @@ public class UserDaoImpl implements UserDao{
         } catch (SQLException e){
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override

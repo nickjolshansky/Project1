@@ -1,5 +1,6 @@
 package app;
 
+import dao.ConnectionFactory;
 import entity.User;
 import service.UserService;
 
@@ -10,6 +11,8 @@ public class App {
     public static User currentUser;
 
     public static void main(String[] args) {
+
+        ConnectionFactory.getConnection();
 
         Scanner scanner = new Scanner(System.in);
 

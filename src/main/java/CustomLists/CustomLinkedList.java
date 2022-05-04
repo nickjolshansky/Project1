@@ -66,4 +66,17 @@ public class CustomLinkedList<T> implements List<T> {
             placeHolderNode = placeHolderNode.next;
         }
     }
+
+    public int getSize() {
+        int s = 0;
+
+        Node placeHolderNode = this.head;
+
+        while(placeHolderNode != null){
+            s++;
+            placeHolderNode = placeHolderNode.next;
+        }
+
+        return s;
+    }
 }

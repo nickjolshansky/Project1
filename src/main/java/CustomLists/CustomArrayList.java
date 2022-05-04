@@ -3,7 +3,6 @@ import java.util.Arrays;
 
 //that <T> indicates that this class can be of any type
 public class CustomArrayList <T> implements List<T>{
-    //how many objects are in array list
     private int size = 0;
 
     private static final int DEFAULT_CAPACITY = 10;
@@ -45,5 +44,10 @@ public class CustomArrayList <T> implements List<T>{
                 System.out.println(e);
             }
         }
+    }
+
+    @Override
+    public int getSize() {
+        return size;
     }
 }

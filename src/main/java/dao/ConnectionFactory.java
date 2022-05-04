@@ -15,12 +15,17 @@ public class ConnectionFactory {
 
     public static Connection getConnection(){
         if(connection == null){
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("dbConfig");
-            String url = resourceBundle.getString("url");
-            String username = resourceBundle.getString("username");
-            String password = resourceBundle.getString("password");
+            try{
+                Class.forName("org.postgresql.Driver");
+            } catch(ClassNotFoundException e){
+                e.printStackTrace();
+            }
 
             try{
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("dbConfig");
+                String url = resourceBundle.getString("url");
+                String username = resourceBundle.getString("username");
+                String password = resourceBundle.getString("password");
                 connection = DriverManager.getConnection(url, username, password);
             }
             catch(SQLException e){
