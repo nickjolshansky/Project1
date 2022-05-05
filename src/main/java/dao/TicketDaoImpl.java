@@ -175,4 +175,14 @@ public class TicketDaoImpl implements TicketDao{
 
         return tickets;
     }
+
+    @Override
+    public void initTables() {
+
+    }
+
+    @Override
+    public void fillTables() {
+
+    }
 }

@@ -13,4 +13,7 @@ public interface TicketDao {
     public Ticket getTicketById(int id);
     public List<Ticket> getTicketsByEmployeeId(int id);
     public List<Ticket> getAllTickets();
+    public void initTables();
+    public void fillTables();
 }
+

@@ -20,7 +20,7 @@ public class TicketServlet extends HttpServlet {
     private TicketDao ticketDao = DaoFactory.getTicketDao();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         int idToGet;
 
@@ -42,7 +42,7 @@ public class TicketServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         try{
             ObjectMapper mapper = new ObjectMapper();
             Ticket ticket = mapper.readValue(req.getInputStream(), Ticket.class);
@@ -69,7 +69,7 @@ public class TicketServlet extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         int idToDelete = Integer.parseInt(req.getParameter("id"));
 
         boolean success = ticketDao.delete(idToDelete);
