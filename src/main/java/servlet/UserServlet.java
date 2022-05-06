@@ -18,7 +18,7 @@ public class UserServlet extends HttpServlet {
     UserDao userDao = DaoFactory.getUserDao();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         int idToGet;
 
@@ -40,7 +40,7 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         try{
             ObjectMapper mapper = new ObjectMapper();
             User user = mapper.readValue(req.getInputStream(), User.class);
@@ -67,7 +67,7 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         int idToDelete = Integer.parseInt(req.getParameter("id"));
 
         boolean success = userDao.delete(idToDelete);

@@ -217,4 +217,14 @@ public class UserDaoImpl implements UserDao{
         }
         return null;
     }
+
+    @Override
+    public void initTables() {
+        
+    }
+
+    @Override
+    public void fillTables() {
+
+    }
 }
