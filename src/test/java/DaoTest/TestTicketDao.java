@@ -73,6 +73,14 @@ public class TestTicketDao {
     }
 
     @Test
+    public void testGetAllTickets() {
+        ticketDao.fillTables();
+        Ticket ticket = (Ticket) ticketDao;
+        assertEquals("Ticket{id=1, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}");
+    }
+
+
+    @Test
     public void testUpdate() {
         ticketDao.fillTables();
         Timestamp updatedTime = Timestamp.valueOf(LocalDateTime.now());
@@ -103,10 +111,7 @@ public class TestTicketDao {
         }
 
     }*/
-    @Test
-    public void testGetAllTickets() {
 
-    }
 
 
 
