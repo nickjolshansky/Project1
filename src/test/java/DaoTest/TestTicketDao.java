@@ -1,15 +1,18 @@
 package DaoTest;
 
+import CustomLists.List;
+import dao.ConnectionFactory;
 import dao.DaoFactory;
 import dao.TicketDao;
 import dao.TicketDaoImpl;
+import entity.Account;
 import entity.Ticket;
+import entity.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
@@ -24,6 +27,8 @@ public class TestTicketDao {
     public void initTables() {
         ticketDao = DaoFactory.getTicketDao();
         ticketDao.initTables();
+
+        Account.currentUser = new User(0, "testName", "testPass", true);
     }
 
     @Test
@@ -46,8 +51,20 @@ public class TestTicketDao {
     @Test
     public void testGetTicket() {
         ticketDao.fillTables();
-        Ticket ticket = (Ticket) ticketDao.getTicket(); //<-------"NOT SURE WHAT I SHOULD HAVE INSIDE PARENTHESIS
+        Ticket ticket = null;
 
+        String sql = "select * from tickets where id = ?;";
+        try{
+            PreparedStatement preparedStatement = ConnectionFactory.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, 1);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                ticket = ticketDao.getTicket(resultSet);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
 
         assertEquals(1, ticket.getId());
         assertEquals(10, ticket.getTicketAmount());
@@ -75,10 +92,10 @@ public class TestTicketDao {
     @Test
     public void testGetAllTickets() {
         ticketDao.fillTables();
-        Ticket ticket = (Ticket) ticketDao.getAllTickets();
-        assertEquals("Ticket{id=1, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}");
-        assertEquals("Ticket{id=2, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}");
-        assertEquals("Ticket{id=3, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}");
+        List<Ticket> tickets = ticketDao.getAllTickets();
+        assertEquals("Ticket{id=1, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}", tickets.get(0));
+        assertEquals("Ticket{id=2, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}", tickets.get(1));
+        assertEquals("Ticket{id=3, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}", tickets.get(2));
 
     }
 

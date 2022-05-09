@@ -1,2 +1,5 @@
-package entity;public class Account {
+package entity;
+
+public class Account {
+    public static User currentUser;
 }

@@ -1,5 +1,6 @@
 package DaoTest;
 
+import CustomLists.List;
 import dao.DaoFactory;
 import dao.UserDao;
 import entity.Ticket;
@@ -70,10 +71,11 @@ public class TestUserDao {
     public void testGetAllUsers() {
 
         userDao.fillTables();
-        User user = (User) userDao.getAllUsers();
-        assertEquals("Users{id=1, userName='user 1', pass='password 1', isManager= 'true'}");
-        assertEquals("Users{id=2, userName='user 2', pass='password 2', isManager= 'true'}");
-        assertEquals("Users{id=3, userName='user 3', pass='password 3', isManager= 'true'}");
+        List<User> users = userDao.getAllUsers();
+        //User users = (User) userDao.getAllUsers();
+        assertEquals("Users{id=1, userName='user 1', pass='password 1', isManager= 'true'}", users.get(0).toString());
+        assertEquals("Users{id=2, userName='user 2', pass='password 2', isManager= 'true'}", users.get(1).toString());
+        assertEquals("Users{id=3, userName='user 3', pass='password 3', isManager= 'true'}", users.get(2).toString());
 
 
     }

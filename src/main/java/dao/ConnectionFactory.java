@@ -15,6 +15,10 @@ public class ConnectionFactory {
 
     public static Connection getConnection(){
         if(connection == null){
+            boolean isTesting = false;
+            String driver = isTesting ? "org.h2.Driver" : "org.postgresql.Driver";
+            String configFile = isTesting ? "dbConfigTest" : "dbConfig";
+
             try{
                 Class.forName("org.postgresql.Driver");
             } catch(ClassNotFoundException e){
@@ -22,7 +26,7 @@ public class ConnectionFactory {
             }
 
             try{
-                ResourceBundle resourceBundle = ResourceBundle.getBundle("dbConfig");
+                ResourceBundle resourceBundle = ResourceBundle.getBundle(configFile);
                 String url = resourceBundle.getString("url");
                 String username = resourceBundle.getString("username");
                 String password = resourceBundle.getString("password");

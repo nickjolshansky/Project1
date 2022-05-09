@@ -10,6 +10,7 @@ public class Ticket {
     private String status;
     private Timestamp timestamp;
 
+    public Ticket(){}
     public Ticket(int id, int employeeId, float ticketAmount, String description, String status, Timestamp timestamp) {
         this.id = id;
         this.employeeId = employeeId;
@@ -24,6 +25,13 @@ public class Ticket {
         this.description = description;
         this.status = status;
         this.timestamp = timestamp;
+    }
+    public Ticket(float ticketAmount, String description) {
+        this.employeeId = Account.currentUser.getId();
+        this.ticketAmount = ticketAmount;
+        this.description = description;
+        this.status = "pending";
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public int getId() {
@@ -62,7 +70,7 @@ public class Ticket {
     }
 
     public Timestamp getTimestamp() {
-        return timestamp;
+        return this.timestamp;
     }
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
@@ -77,7 +85,7 @@ public class Ticket {
                 ", ticketAmount=" + ticketAmount +
                 ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
-                ", timestamp=" + timestamp +
+                ", date=" + timestamp +
                 '}';
     }
 }

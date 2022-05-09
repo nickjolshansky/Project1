@@ -14,4 +14,7 @@ public interface UserDao {
     public List<User> getAllUsers();
     public boolean checkUsername(String username);
     public User loginUser(String username, String password);
+
+    public void initTables();
+    public void fillTables();
 }

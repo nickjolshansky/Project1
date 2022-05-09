@@ -4,6 +4,7 @@ import CustomLists.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DaoFactory;
 import dao.UserDao;
+import entity.Account;
 import entity.Ticket;
 import entity.User;
 
@@ -18,7 +19,7 @@ public class UserServlet extends HttpServlet {
     UserDao userDao = DaoFactory.getUserDao();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         int idToGet;
 
@@ -28,7 +29,7 @@ public class UserServlet extends HttpServlet {
         catch (NumberFormatException e) {
             e.printStackTrace();
             List<User> users = userDao.getAllUsers();
-            out.println("All tickets:");
+            out.println("All users:");
             for(int i = 0; i < users.getSize(); i++) {
                 out.println(users.get(i));
             }
@@ -40,7 +41,7 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         try{
             ObjectMapper mapper = new ObjectMapper();
             User user = mapper.readValue(req.getInputStream(), User.class);
@@ -61,13 +62,16 @@ public class UserServlet extends HttpServlet {
     public void doPut(HttpServletRequest req, HttpServletResponse res) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         User user = mapper.readValue(req.getReader(), User.class);
-        User userResult = userDao.update(user);
+        User userResult = DaoFactory.getUserDao().loginUser(user.getUsername(), user.getPass());
         PrintWriter out = res.getWriter();
-        out.write(userResult.toString());
+        out.write("You are now logged in as " + userResult.getUsername());
+
+        Account.currentUser = userResult;
+        System.out.println(userResult);
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         int idToDelete = Integer.parseInt(req.getParameter("id"));
 
         boolean success = userDao.delete(idToDelete);
