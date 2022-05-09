@@ -28,16 +28,16 @@ public class TestUserDao {
 
     }
 
-  /* @Test
+  @Test
     public void testGetUser() {
         userDao.fillTables();
-        User user = userDao.getUser(      ); //<-------"NOT SURE WHAT I SHOULD HAVE INSIDE PARENTHESIS
+        User user = userDao.getUser(    ); //<-------"NOT SURE WHAT I SHOULD HAVE INSIDE PARENTHESIS
         assertEquals("1", user.getId());
-        assertEquals("username", user.getUsername());
-        assertEquals("password", user.getPass());
+        assertEquals("username 1", user.getUsername());
+        assertEquals("password 1", user.getPass());
         assertEquals(true, user.isManager());
 
-    }*/
+    }
 
     @Test
     public void testGetUserById() {
@@ -68,7 +68,7 @@ public class TestUserDao {
 
     @Test
     public void testGetAllUsers() {
-
+git 
         userDao.fillTables();
         User user = (User) userDao.getAllUsers();
         assertEquals("Users{id=1, userName='user 1', pass='password 1', isManager= 'true'}");

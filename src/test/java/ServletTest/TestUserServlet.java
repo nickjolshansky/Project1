@@ -89,6 +89,34 @@ public class TestUserServlet {
     }
 
     @Test
+    public void testGetUserNotThere() throws IOException, ServletException {
+        //mock up request and response
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletResponse response = mock(HttpServletResponse.class);
+
+        //mocking up the id query parameter of id=1
+        when(request.getParameter("id")).thenReturn("10");
+
+        //set up print writer
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        when(response.getWriter()).thenReturn(printWriter);
+
+        //create a new ticket servlet and do get method
+        new UserServlet().doGet(request, response);
+
+        // verify parameter
+        verify(request, atLeast(1)).getParameter("id");
+
+        //flush out printWriter to ensure all output is written
+        printWriter.flush();
+
+        //assert true that the result contains the proper ticket
+        assertNull(userDao.getUserById(10));
+
+    }
+
+    @Test
     public void TestPostUser() throws IOException, ServletException {
         //mock up request and response
         HttpServletRequest request = mock(HttpServletRequest.class);

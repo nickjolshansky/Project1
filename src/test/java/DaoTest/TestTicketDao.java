@@ -46,7 +46,7 @@ public class TestTicketDao {
    @Test
     public void testGetTicket() {
         ticketDao.fillTables();
-        Ticket ticket = (Ticket) ticketDao.getTicket(   ); //<-------"NOT SURE WHAT I SHOULD HAVE INSIDE PARENTHESIS
+        Ticket ticket = ticketDao.getTicket(   ); //<-------"NOT SURE WHAT I SHOULD HAVE INSIDE PARENTHESIS
 
 
         assertEquals(1, ticket.getId());

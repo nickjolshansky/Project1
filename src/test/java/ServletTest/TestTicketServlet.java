@@ -8,11 +8,13 @@ import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 import servlet.TicketServlet;
+import servlet.UserServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.sql.Timestamp;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -81,6 +83,34 @@ public class TestTicketServlet {
 
         //assert true that the result contains the proper ticket
         assertTrue(stringWriter.toString().contains("Ticket{id=1, customerid=1, ticketAmount=1.00, description='description 1', status='status 1', timestamp='timestamp'}"));
+
+    }
+
+    @Test
+    public void testGetTicketNotThere() throws IOException, ServletException {
+        //mock up request and response
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletResponse response = mock(HttpServletResponse.class);
+
+        //mocking up the id query parameter of id=1
+        when(request.getParameter("id")).thenReturn("10");
+
+        //set up print writer
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        when(response.getWriter()).thenReturn(printWriter);
+
+        //create a new ticket servlet and do get method
+        new TicketServlet().doGet(request, response);
+
+        // verify parameter
+        verify(request, atLeast(1)).getParameter("id");
+
+        //flush out printWriter to ensure all output is written
+        printWriter.flush();
+
+        //assert true that the result contains the proper ticket
+        assertNull(ticketDao.getTicketById(10));
 
     }
 
