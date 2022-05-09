@@ -46,7 +46,7 @@ public class TestTicketDao {
    @Test
     public void testGetTicket() {
         ticketDao.fillTables();
-        Ticket ticket = (Ticket) ticketDao.getTicket(); //<-------"NOT SURE WHAT I SHOULD HAVE INSIDE PARENTHESIS
+        Ticket ticket = (Ticket) ticketDao.getTicket(   ); //<-------"NOT SURE WHAT I SHOULD HAVE INSIDE PARENTHESIS
 
 
         assertEquals(1, ticket.getId());
@@ -76,9 +76,9 @@ public class TestTicketDao {
     public void testGetAllTickets() {
         ticketDao.fillTables();
         Ticket ticket = (Ticket) ticketDao.getAllTickets();
-        assertEquals("Ticket{id=1, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}");
-        assertEquals("Ticket{id=2, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}");
-        assertEquals("Ticket{id=3, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}");
+        assertEquals("Ticket{id=1, ticketAmount=1.00, description='description 1', status= 'status 1', timestamp= 'timestamp'}");
+        assertEquals("Ticket{id=2, ticketAmount=2.00, description='description 2', status= 'status 2', timestamp= 'timestamp'}");
+        assertEquals("Ticket{id=3, ticketAmount=3.00, description='description 3', status= 'status 3', timestamp= 'timestamp'}");
 
     }
 

@@ -220,11 +220,27 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void initTables() {
-
+        String sql = "CREATE TABLE users(id serial primary key, username VARCHAR(50), pass VARCHAR(50), isManager BOOLEAN);";
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void fillTables() {
-
+        String sql = "INSERT INTO users(id, username, pass, isManager) values (default, 'username 1', 'pass 1', true);\n";
+        sql += "INSERT INTO users(id, username, pass, isManager) values (default, 'username 2', 'pass 2', true);\n";
+        sql += "INSERT INTO users(id, username, pass, isManager) values (default, 'username 3', 'pass 3', true);";
+        try{
+            Statement statement =connection.createStatement();
+            statement.execute(sql);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

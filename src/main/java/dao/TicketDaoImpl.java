@@ -178,11 +178,27 @@ public class TicketDaoImpl implements TicketDao{
 
     @Override
     public void initTables() {
-
+        String sql = "CREATE TABLE tickets(id serial primary key, employeeId INTEGER, ticketAmount FLOAT, description VARCHAR(50), status VARCHAR 50, timestamp Timestamp);";
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void fillTables() {
-
+        String sql = "INSERT INTO tickets(id, employeeId, ticketAmount, description, status, timestamp) values (default, 1, 1.00, 'description 1', 'status 1', 'timestamp');\n";
+        sql += "INSERT INTO tickets(id, employeeId, ticketAmount, description, status, timestamp) values (default, 2, 2.00, 'description 2', 'status 2', 'timestamp');\n";
+        sql += "INSERT INTO tickets(id, employeeId, ticketAmount, description, status, timestamp) values (default, 3, 3.00, 'description 3', 'status 3', 'timestamp');";
+        try{
+            Statement statement =connection.createStatement();
+            statement.execute(sql);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
