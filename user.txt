@@ -1,0 +1,1 @@
+{"username": "userName 1", "pass": "password 1", "isManager": "true"}
