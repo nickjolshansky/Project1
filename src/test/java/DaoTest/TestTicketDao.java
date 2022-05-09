@@ -43,25 +43,25 @@ public class TestTicketDao {
         assertNull(ticket);
     }
 
-   /* @Test
+   @Test
     public void testGetTicket() {
         ticketDao.fillTables();
-        Ticket ticket = ticketDao.getTicket(     ); //<-------"NOT SURE WHAT I SHOULD HAVE INSIDE PARENTHESIS
+        Ticket ticket = (Ticket) ticketDao.getTicket(); //<-------"NOT SURE WHAT I SHOULD HAVE INSIDE PARENTHESIS
 
-        //not fixed below here
+
         assertEquals(1, ticket.getId());
         assertEquals(10, ticket.getTicketAmount());
         assertEquals("description", ticket.getDescription());
         assertEquals("status", ticket.getStatus());
         assertEquals("Timestamp", ticket.getTimestamp());
 
-    }*/
+    }
 
     @Test
     public void testGetTicketById() {
         ticketDao.fillTables();
         Ticket ticket = ticketDao.getTicketById(1);
-        assertEquals("description", ticket.getDescription());
+        assertEquals(1, ticket.getId());
     }
 
 
@@ -69,14 +69,17 @@ public class TestTicketDao {
     public void testGetTicketsByEmployeeId() {
         ticketDao.fillTables();
         Ticket ticket = (Ticket) ticketDao.getTicketsByEmployeeId(1);
-        assertEquals("description", ticket.getDescription());
+        assertEquals(1, ticket.getId());
     }
 
     @Test
     public void testGetAllTickets() {
         ticketDao.fillTables();
-        Ticket ticket = (Ticket) ticketDao;
+        Ticket ticket = (Ticket) ticketDao.getAllTickets();
         assertEquals("Ticket{id=1, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}");
+        assertEquals("Ticket{id=2, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}");
+        assertEquals("Ticket{id=3, ticketAmount=10, description='UPDATED description', status= 'UPDATED status', timestamp= 'updatedTime'}");
+
     }
 
 
@@ -87,10 +90,10 @@ public class TestTicketDao {
         Ticket ticket = new Ticket(1, 10, "UPDATED description", "UPDATED status", updatedTime);
         ticketDao.update(ticket);
         Ticket tickDB = ticketDao.getTicketById(1);
-        assertEquals(1, ticket.getId());
-        assertEquals(10, ticket.getTicketAmount());
-        assertEquals("UPDATED description", ticket.getDescription());
-        assertEquals("UPDATED status", ticket.getStatus());
+        assertEquals(1, tickDB.getId());
+        assertEquals(10, tickDB.getTicketAmount());
+        assertEquals("UPDATED description", tickDB.getDescription());
+        assertEquals("UPDATED status", tickDB.getStatus());
         assertEquals("Timestamp", updatedTime);
     }
 

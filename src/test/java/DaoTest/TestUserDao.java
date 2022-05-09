@@ -69,6 +69,13 @@ public class TestUserDao {
     @Test
     public void testGetAllUsers() {
 
+        userDao.fillTables();
+        User user = (User) userDao.getAllUsers();
+        assertEquals("Users{id=1, userName='user 1', pass='password 1', isManager= 'true'}");
+        assertEquals("Users{id=2, userName='user 2', pass='password 2', isManager= 'true'}");
+        assertEquals("Users{id=3, userName='user 3', pass='password 3', isManager= 'true'}");
+
+
     }
 
     @Test
