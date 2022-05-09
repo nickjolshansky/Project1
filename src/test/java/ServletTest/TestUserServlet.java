@@ -96,7 +96,7 @@ public class TestUserServlet {
 
         // since taking in a buffered reader to read body, must simulate it by putting mock data
         // in a local file called ticket.txt, this is simulating what we would put in body of request
-        FileReader fileReader = new FileReader("ticket.txt");
+        FileReader fileReader = new FileReader("user.txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
         //configure buffered reader
@@ -133,7 +133,7 @@ public class TestUserServlet {
         HttpServletResponse response = mock(HttpServletResponse.class);
 
         // since take in buffered reader to read body, simulate it by putting mock data in local file called ticket_with_id.txt
-        FileReader fileReader = new FileReader("  NEED FILE LOCATION");
+        FileReader fileReader = new FileReader("user_with_id.txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
         //configure request to use buffered reader
